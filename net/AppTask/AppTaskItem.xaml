@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="CustIS.NTier.Client.Controls.AppTaskItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:controls="clr-namespace:CustIS.NTier.Client.Controls"
+             xmlns:selectors="clr-namespace:CustIS.NTier.Client.Controls.Selectors"
+             mc:Ignorable="d"
+             >
+    <controls:Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Text="{Binding DisplayTitle}" HorizontalAlignment="Left" Grid.ColumnSpan="2"/>
+        <controls:StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="6" HorizontalAlignment="Right" Grid.ColumnSpan="2">
+            <controls:StackPanel Orientation="Horizontal" Spacing="2">
+                <controls:StackPanel.Style>
+                    <Style TargetType="controls:StackPanel">
+                        <Setter Property="controls:BooleanVisibility.Value" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CanCancel}" Value="False">
+                                <Setter Property="controls:BooleanVisibility.Value" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </controls:StackPanel.Style>
+                <selectors:ClearButton x:Name="Cancel" cal:Message.Attach="[Event MouseDown] = [Action Cancel]" />
+                <TextBlock VerticalAlignment="Center" cal:Message.Attach="[Event MouseDown] = [Action Cancel]">Отмена</TextBlock>
+            </controls:StackPanel>
+            <ProgressBar HorizontalAlignment="Right" IsIndeterminate="True" Width="100"/>
+        </controls:StackPanel>
+    </controls:Grid>
+</UserControl>
